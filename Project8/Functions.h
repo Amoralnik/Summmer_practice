@@ -14,6 +14,33 @@ using namespace std;
 * (ÿךשמ left, right = 0, עמ מבלוזוםü םולא÷)
 * @return םולא÷
 */
+struct Cordinat
+{
+	int X;
+	int Y;
+	bool way_moves[4] = { 1,1,1,1 };
+	int amount_moves;
+};
+
+
+struct Chekpoint
+{
+	Cordinat a;
+	Chekpoint* next;
+};
+
+int amount_move(int** POLE, int pozition[2], Chekpoint** begin, int final[]);
+
+void chose_site(Chekpoint** begin, int pozition[], int final[], int& amount_steps);
+
+bool unexpected_chek(int**& POLE, int pozition[], int final[]);
+
+bool unexpected_way(Chekpoint** begin, int**& POLE, int& amount_steps, int pozition[], int final[]);
+
+void Smart_way(Chekpoint** begin, int& amount_steps, int**& POLE, int final[]);
+
+int Find_way(Chekpoint** begin, int**& POLE1, int pozition[], int final[], int size);
+
 void Input(int& a, string bob, double left, double right);
 
 void Initmatr2(int** matr, int a, int min, int max);
