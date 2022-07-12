@@ -10,10 +10,10 @@ int main()
 	setlocale(LC_ALL, "rus");
 	int size, top_step = 1000, amount_steps = -1,variable = 0;
 	int** POLE_true;
-	int pozition[2] = { 2,3 }, final[2] = { 7,9 };
+	int pozition[2] = { 6,4 }, final[2] = { 10,8 };
 	int** POLE1;
 	int previous_x = pozition[1], previous_y = pozition[0];
-	Chekpoint** begin = NULL;
+
 	
 	/*
 	cout << pozition[0][1];-
@@ -42,13 +42,14 @@ int main()
 	POLE_true[final[0]][final[1]] = 0;
 	POLE_true[6][7] = 0;
 	*/
-
+	/*
 	Input(pozition[1], "Input start X:	", 1, size);
 	Input(pozition[0], "Input start Y:	", 1, size);
 	
 	
 	Input(final[1], "Input end X: ", 1, size); 
 	Input(final[0], "Input end Y: ", 1, size);
+	*/
 	
 
 	/*
@@ -107,7 +108,7 @@ int main()
 		top_step = variable;
 		cout << "\n\n\n\n\n\nTOP STEP = " << top_step << "\n\n\n\n\n\n";
 	*/
-	variable = Find_way(begin, POLE1, pozition, final, size);
+	variable = Find_way(POLE1, pozition, final, size);
 	top_step = variable;
 	cout << "\nTOP STEP = " << top_step << "\n\n\n\n\n\n";
 		/*

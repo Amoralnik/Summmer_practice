@@ -269,10 +269,11 @@ void Smart_way(Chekpoint** begin, int& amount_steps, int**& POLE, int final[])
 	}
 }
 
-int Find_way(Chekpoint** begin, int**& POLE1, int pozition[], int final[], int size)
+int Find_way(int**& POLE1, int pozition[], int final[], int size)
 {
 	int amount_steps = -1;
 	bool end = 0;
+	Chekpoint* begin = NULL;
 	/*
 	*/
 	if (pozition[0] == final[0] && pozition[1] == final[1])
@@ -288,26 +289,27 @@ int Find_way(Chekpoint** begin, int**& POLE1, int pozition[], int final[], int s
 		variable = unexpected_chek(POLE1, pozition, final);
 		if (!variable)
 		{
-			variable = unexpected_way(begin, POLE1, amount_steps, pozition, final);
+			variable = unexpected_way(&begin, POLE1, amount_steps, pozition, final);
 			if (!variable)
 			{
 				if (end == 0)
 				{
-					cout << "\n\n\t\t NO MATCHES";
+					//cout << "\n\n\t\t NO MATCHES";
+					return 0;
 					exit(EXIT_SUCCESS);
 				}
 				else
 					break;
 			}
-			amount_move(POLE1, pozition, begin, final);
-			chose_site(begin, pozition, final, amount_steps);
+			amount_move(POLE1, pozition, &begin, final);
+			chose_site(&begin, pozition, final, amount_steps);
 			variable = unexpected_chek(POLE1, pozition, final);
 			//Output2(POLE1, size);
 		}
 		else
 		{
-			amount_move(POLE1, pozition, begin, final);
-			chose_site(begin, pozition, final, amount_steps);
+			amount_move(POLE1, pozition, &begin, final);
+			chose_site(&begin, pozition, final, amount_steps);
 			variable = unexpected_chek(POLE1, pozition, final);
 			//Output2(POLE1, size);
 		}
@@ -316,18 +318,18 @@ int Find_way(Chekpoint** begin, int**& POLE1, int pozition[], int final[], int s
 	end = 1;
 	//} while (unexpected_way(begin, POLE1, amount_steps, pozition, final));
 	//while ((pozition[0] != final[0]) || (pozition[1] != final[1]));
-	amount_move(POLE1, pozition, begin, final);
+	amount_move(POLE1, pozition, &begin, final);
 
-	Chekpoint* n = *begin;
+	Chekpoint* n = begin;
 	while (n->next)
 		n = n->next;
 	amount_steps++;
 	n->a.amount_moves = amount_steps;
 	//Output2(POLE1, size);
 	cout << endl << endl;
-	Smart_way(begin, amount_steps, POLE1, final);
+	Smart_way(&begin, amount_steps, POLE1, final);
 
-	Output2(POLE1, size);
+	//Output2(POLE1, size);
 	return amount_steps;
 }
 
@@ -377,7 +379,7 @@ void Input(int& a, string bob, double left, double right)
 	}
 }
 
-void Initmatr2(int** matr, int a, int min, int max)
+bool Initmatr2(int** matr, int a, int min, int max)
 {
 	const int C = min;
 	const int B = max;
@@ -393,9 +395,10 @@ void Initmatr2(int** matr, int a, int min, int max)
 				matr[i][j] = 8;
 		}
 	}
+	return 1;
 }
 
-void Sozdmatr(int a, int**& matr)
+bool Sozdmatr(int a, int**& matr)
 {
 	matr = new int* [a];
 
@@ -403,6 +406,7 @@ void Sozdmatr(int a, int**& matr)
 	{
 		matr[i] = new int[a] {};
 	}
+	return 1;
 }
 
 void Output2(int** matr, int a)
@@ -437,21 +441,8 @@ void Output2(int** matr, int a)
 	cout << endl;
 }
 
-void Init1_3(int***& matr)
-{
-	for (int i(0); i < 1; i++)
-	{
-		for (int j(0); j < 1; j++)
-		{
-			for (int k(0); k < 4; k++)
-			{
-				matr[i][j][k] = 1;
-			}
-		}
-	}
-}
 
-void Corners(int a, int**& matr)
+bool Corners(int a, int**& matr)
 {
 	for (int i(0); i < a; i++)
 	{
@@ -463,9 +454,10 @@ void Corners(int a, int**& matr)
 				matr[i][j] = i;
 		}
 	}
+	return 1;
 }
 
-void Copy2(int a, int**& matr, int**& matr1)
+bool Copy2(int a, int**& matr, int**& matr1)
 {
 	for (int i(0); i < a; i++)
 	{
@@ -474,20 +466,7 @@ void Copy2(int a, int**& matr, int**& matr1)
 			matr1[i][j] = matr[i][j];
 		}
 	}
-}
-
-void Sozdmatr3(int a, int***& matr)
-{
-	matr = new int** [a];
-
-	for (int i(0); i < a; i++)
-	{
-		matr[i] = new int* [a] {};
-		for (int j(0); j < a; j++)
-		{
-			matr[i][j] = new int[4]{};
-		}
-	}
+	return 1;
 }
 
 int Randnumber(int min, int max)
